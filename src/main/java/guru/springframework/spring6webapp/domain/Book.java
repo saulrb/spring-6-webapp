@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,13 +16,16 @@ public class Book {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+
   private String title;
   private String isbn;
 
   @ManyToMany
-  @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+  @JoinTable(
+      name = "author_book",
+      joinColumns = @JoinColumn(name = "book_id"),
       inverseJoinColumns = @JoinColumn(name = "author_id"))
-  private Set<Author> authors;
+  private Set<Author> authors = new HashSet<>();
 
   public Set<Author> getAuthors() {
     return authors;
@@ -57,27 +61,28 @@ public class Book {
 
   @Override
   public String toString() {
-    return "Book{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", isbn='" + isbn + '\'' +
-        ", authors=" + authors +
-        '}';
+    return "Book{"
+        + "id="
+        + id
+        + ", title='"
+        + title
+        + '\''
+        + ", isbn='"
+        + isbn
+        + '\''
+        + ", authors="
+        + authors
+        + '}';
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (!(o instanceof Book book))
-      return false;
+    if (this == o) return true;
+    if (!(o instanceof Book book)) return false;
 
-    if (!Objects.equals(id, book.id))
-      return false;
-    if (!Objects.equals(title, book.title))
-      return false;
-    if (!Objects.equals(isbn, book.isbn))
-      return false;
+    if (!Objects.equals(id, book.id)) return false;
+    if (!Objects.equals(title, book.title)) return false;
+    if (!Objects.equals(isbn, book.isbn)) return false;
     return Objects.equals(authors, book.authors);
   }
 

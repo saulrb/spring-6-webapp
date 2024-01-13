@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class Author {
   private String lastname;
 
   @ManyToMany(mappedBy = "authors")
-  private Set<Book> books;
+  private Set<Book> books = new HashSet<>();
 
   public Set<Book> getBooks() {
     return books;
@@ -54,27 +55,28 @@ public class Author {
 
   @Override
   public String toString() {
-    return "Author{" +
-        "id=" + id +
-        ", firstname='" + firstname + '\'' +
-        ", lastname='" + lastname + '\'' +
-        ", books=" + books +
-        '}';
+    return "Author{"
+        + "id="
+        + id
+        + ", firstname='"
+        + firstname
+        + '\''
+        + ", lastname='"
+        + lastname
+        + '\''
+        + ", books="
+        + books
+        + '}';
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (!(o instanceof Author author))
-      return false;
+    if (this == o) return true;
+    if (!(o instanceof Author author)) return false;
 
-    if (!Objects.equals(id, author.id))
-      return false;
-    if (!Objects.equals(firstname, author.firstname))
-      return false;
-    if (!Objects.equals(lastname, author.lastname))
-      return false;
+    if (!Objects.equals(id, author.id)) return false;
+    if (!Objects.equals(firstname, author.firstname)) return false;
+    if (!Objects.equals(lastname, author.lastname)) return false;
     return Objects.equals(books, author.books);
   }
 

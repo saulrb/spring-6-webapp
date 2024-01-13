@@ -15,6 +15,7 @@
 	<description>Spring 6 Web App</description>
 	<properties>
 		<java.version>21</java.version>
+		<google-java-format.version>1.19.2</google-java-format.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,6 +36,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.googlejavaformat</groupId>
+			<artifactId>google-java-format</artifactId>
+			<version>${google-java-format.version}</version>
 		</dependency>
 	</dependencies>
 
