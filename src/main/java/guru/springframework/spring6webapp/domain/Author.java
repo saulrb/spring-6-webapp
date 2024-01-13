@@ -4,9 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -51,5 +50,40 @@ public class Author {
 
   public void setLastname(String lastname) {
     this.lastname = lastname;
+  }
+
+  @Override
+  public String toString() {
+    return "Author{" +
+        "id=" + id +
+        ", firstname='" + firstname + '\'' +
+        ", lastname='" + lastname + '\'' +
+        ", books=" + books +
+        '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (!(o instanceof Author author))
+      return false;
+
+    if (!Objects.equals(id, author.id))
+      return false;
+    if (!Objects.equals(firstname, author.firstname))
+      return false;
+    if (!Objects.equals(lastname, author.lastname))
+      return false;
+    return Objects.equals(books, author.books);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (books != null ? books.hashCode() : 0);
+    return result;
   }
 }
