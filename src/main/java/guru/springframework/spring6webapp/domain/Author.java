@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,8 +20,23 @@ public class Author {
   private String firstname;
   private String lastname;
 
+  @ManyToMany
+  @JoinTable(
+      name = "publisher_author",
+      joinColumns = @JoinColumn(name = "author_id"),
+      inverseJoinColumns = @JoinColumn(name = "publisher_id"))
+  private Set<Publisher> publishers = new HashSet();
+
   @ManyToMany(mappedBy = "authors")
   private Set<Book> books = new HashSet<>();
+
+  public Set<Publisher> getPublishers() {
+    return publishers;
+  }
+
+  public void setPublishers(Set<Publisher> publishers) {
+    this.publishers = publishers;
+  }
 
   public Set<Book> getBooks() {
     return books;
